@@ -9,7 +9,6 @@ import 'package:electronic_e_commerce/widgets/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -92,7 +91,12 @@ class _SettingScreenState extends State<SettingScreen> {
                   SettingItem(title:AppLocalizations.of(context)!.about, subTitle: AppLocalizations.of(context)!.describe_the_company, icon:Icons.info ,index:3 ,onTap:(){
                     navigateToAboutScreen();
                   } ,),
-                  SettingItem(title: AppLocalizations.of(context)!.addresses, subTitle: AppLocalizations.of(context)!.add_addresses, icon:Icons.place_outlined ,index:4 ,onTap:(){} ,),
+                  SettingItem(title: AppLocalizations.of(context)!.addresses, subTitle: AppLocalizations.of(context)!.add_addresses, icon:Icons.place_outlined ,index:4 ,onTap:(){
+                    navigateToAddressScreen();
+                  } ,),
+                  SettingItem(title: AppLocalizations.of(context)!.card, subTitle: AppLocalizations.of(context)!.add_card, icon:Icons.credit_card ,index:4 ,onTap:(){
+                    navigateToCardScreen();
+                  } ,),
                   SettingItem(title: AppLocalizations.of(context)!.contact_us, subTitle: AppLocalizations.of(context)!.contact_us_message, icon:Icons.contact_support ,index:5 ,onTap:(){
                     navigateToContantScreen();
                   } ,),
@@ -127,6 +131,12 @@ class _SettingScreenState extends State<SettingScreen> {
   }
   void navigateToAboutScreen() {
     Navigator.pushNamed(context, '/about_screen');
+  }
+  void navigateToAddressScreen() {
+    Navigator.pushNamed(context, '/address_option_screen');
+  }
+  void navigateToCardScreen() {
+    Navigator.pushNamed(context, '/card_option_screen');
   }
   Future logout() async {
     bool loggedOut = await UserApiController().logout(context);

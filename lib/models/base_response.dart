@@ -1,5 +1,7 @@
+import 'package:electronic_e_commerce/models/card.dart';
 import 'package:electronic_e_commerce/models/question.dart';
 
+import 'address.dart';
 import 'city.dart';
 
 class BaseResponse<T> {
@@ -24,6 +26,16 @@ class BaseResponse<T> {
           list.add(Question.fromJson(v) as T);
         });
 
+      }
+      if(T==CardModel){
+        json['list'].forEach((v) {
+          list.add(CardModel.fromJson(v) as T);
+        });
+      }
+      if(T==Address){
+        json['list'].forEach((v) {
+          list.add(Address.fromJson(v) as T);
+        });
       }
   }
         }

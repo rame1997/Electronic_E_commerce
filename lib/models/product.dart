@@ -8,8 +8,8 @@ class Products {
   late int quantity;
   late int overalRate;
   late int subCategoryId;
-  late int productRate;
-  late double? offerPrice;
+  late num productRate;
+  late int? offerPrice;
   late bool isFavorite;
   late String imageUrl;
 
@@ -23,7 +23,7 @@ class Products {
     infoAr = json['info_ar'];
     price = json['price'];
     quantity = json['quantity'];
-    overalRate = json['overal_rate'];
+   // overalRate = json['overal_rate'];
     subCategoryId = json['sub_category_id'];
     productRate = json['product_rate'];
     offerPrice = json['offer_price'];

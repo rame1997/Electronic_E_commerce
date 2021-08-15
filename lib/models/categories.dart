@@ -5,7 +5,7 @@ class Categories {
   late String image;
   late String imageUrl;
   late int? productsCount;
-  late String? subCategoriesCount;
+  late int? subCategoriesCount;
 
   Categories.fromJson(Map<String, dynamic> json) {
     id = json['id'];

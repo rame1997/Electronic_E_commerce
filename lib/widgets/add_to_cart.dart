@@ -1,4 +1,3 @@
-import 'package:electronic_e_commerce/models/product.dart';
 import 'package:electronic_e_commerce/utilities/app_colors.dart';
 import 'package:electronic_e_commerce/utilities/size_config.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +7,10 @@ import 'button.dart';
 
 
 class AddToCart extends StatelessWidget {
-  final Products product;
   Function() onPressAddToCart;
   Function() onPressToCart;
   AddToCart({
-    required this.product,required this.onPressAddToCart,required this.onPressToCart
+  required this.onPressAddToCart,required this.onPressToCart
   });
 
 

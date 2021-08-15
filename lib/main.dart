@@ -1,6 +1,8 @@
 import 'package:electronic_e_commerce/getx/language_getx_controller.dart';
 import 'package:electronic_e_commerce/preferences/user_preferences.dart';
 import 'package:electronic_e_commerce/screens/about_screen.dart';
+import 'package:electronic_e_commerce/screens/address/add_address_screen.dart';
+import 'package:electronic_e_commerce/screens/address/address_option_screen.dart';
 import 'package:electronic_e_commerce/screens/auth/active_account_screen.dart';
 import 'package:electronic_e_commerce/screens/auth/change_password_screen.dart';
 import 'package:electronic_e_commerce/screens/auth/create_account_screen.dart';
@@ -9,6 +11,8 @@ import 'package:electronic_e_commerce/screens/auth/reset_password_screen.dart';
 import 'package:electronic_e_commerce/screens/bottom_navigation_bar/bottom_navigation_bar_screen.dart';
 import 'package:electronic_e_commerce/screens/bottom_navigation_bar/tab_bottom_navigation_bar/home_screen.dart';
 import 'package:electronic_e_commerce/screens/bottom_navigation_bar/tab_bottom_navigation_bar/my_order.dart';
+import 'package:electronic_e_commerce/screens/card/add_card_screen.dart';
+import 'package:electronic_e_commerce/screens/card/card_option_screen.dart';
 import 'package:electronic_e_commerce/screens/cart/cart.dart';
 import 'package:electronic_e_commerce/screens/category_screen.dart';
 import 'package:electronic_e_commerce/screens/contact_screen.dart';
@@ -16,6 +20,7 @@ import 'package:electronic_e_commerce/screens/last_product_screen.dart';
 import 'package:electronic_e_commerce/screens/launch_screen.dart';
 import 'package:electronic_e_commerce/screens/auth/login_screen.dart';
 import 'package:electronic_e_commerce/screens/on_boarding/on_boarding_screen.dart';
+import 'package:electronic_e_commerce/screens/payment/payment_option.dart';
 import 'package:electronic_e_commerce/screens/profile_screen.dart';
 import 'package:electronic_e_commerce/utilities/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +78,12 @@ class _MyAppState extends State<MyApp> {
             '/profile_screen': (context) => ProfileScreen(),
             '/contant_screen': (context) => ContantScreen(),
             '/about_screen': (context) => AboutScreen(),
-            '/cart_screen': (context) => MyOrderProductsScreen(),
+            '/cart_screen': (context) => CartScreen(),
+            '/payment_option_screen': (context) => PaymentOptionScreen(),
+            '/card_option_screen': (context) => CardOptionScreen(),
+            '/address_option_screen': (context) => AddressOptionScreen(),
+            '/add_card_screen': (context) => AddCardScreen(),
+            '/add_address_screen': (context) => AddAddressScreen(),
 
 
 

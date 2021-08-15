@@ -1,4 +1,5 @@
 import 'package:electronic_e_commerce/api/home_api_controller.dart';
+import 'package:electronic_e_commerce/getx/cart_getx_controller.dart';
 import 'package:electronic_e_commerce/getx/home_getx_controller.dart';
 import 'package:electronic_e_commerce/getx/user_getx_controller.dart';
 import 'package:electronic_e_commerce/models/home.dart';
@@ -24,6 +25,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late HomeGetxController _homeController;
+  late CartGetxController cartGetxController;
   int length=0;
 
   void initState() {
@@ -31,52 +33,28 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     Get.put(UserGetxController());
     _homeController = Get.put(HomeGetxController());
-    length= _homeController.data[0].slider.length;
-
+    cartGetxController = Get.put(CartGetxController());
+    _homeController.getHome();
     }
-
   int _current = 0;
   final CarouselController _controller = CarouselController();
 
 
   @override
   Widget build(BuildContext context) {
-    final List<String> image = [
-      for(var i = 0; i < length; i++)
-        _homeController.data[0].slider[i].imageUrl
-    ];
-    final List<Widget> imageSliders = image
-        .map((item) =>
-        Container(
-          child: Container(
-            margin: EdgeInsets.all(5.0),
-            child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                child: Stack(
-                  children: <Widget>[
-                    Image.network(item, fit: BoxFit.cover, width: 1000.0),
 
-                  ],
-                )),
-          ),
-        ))
-        .toList();
     return Scaffold(
         body: Padding(
           padding: EdgeInsets.only(left: SizeConfig.scaleWidth(15),
               right: SizeConfig.scaleWidth(15),
               top: SizeConfig.scaleHeight(40)),
-          child: GetX<HomeGetxController>(
-              builder: (HomeGetxController controller) {
-                return controller.data.isEmpty
-                    ? Center(
-                  child: CircularProgressIndicator(),
-                )
-                    : (
+          child:
                     SingleChildScrollView(
                       child: Column(
                           children: [
-                            Row(
+                            GetX<CartGetxController>(
+                                builder: (CartGetxController controller) {
+                           return Row(
                               children: [
                                 Expanded(
                                   child: Container(
@@ -118,12 +96,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     width: 30.0,
                                     child: new GestureDetector(
                                       onTap: () {
-                                        // Navigator.of(context).push(
-                                        //     new MaterialPageRoute(
-                                        //         builder:(BuildContext context) =>
-                                        //         new CartItemsScreen()
-                                        //     )
-                                        // );
+                                        Navigator.pushNamed(
+                                          context,'/cart_screen'
+                                        );
                                       },
 
                                       child: Stack(
@@ -134,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               color: AppColors.MAIN_COLORE,),
                                             onPressed: null,
                                           ),
-                                          image.length == 0 ? Container() :
+                                          controller.cart.value.length == 0 ? Container() :
                                           Positioned(
 
                                               child: Stack(
@@ -145,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       right: 4.0,
                                                       child: Center(
                                                         child: new Text(
-                                                          image.length
+                                                          controller.cart.value.length
                                                               .toString(),
                                                           style: new TextStyle(
                                                               color: AppColors
@@ -168,285 +143,320 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                 ,
                               ],
-                            ),
-                            SizedBox(height: SizeConfig.scaleHeight(20),),
-                            Container(
-                              width: double.infinity,
-                              height: SizeConfig.scaleHeight(190),
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                    child: CarouselSlider(
-                                      items: imageSliders,
-                                      carouselController: _controller,
-                                      options: CarouselOptions(
-                                          autoPlay: true,
-                                          enlargeCenterPage: true,
-                                          aspectRatio: 2.0,
-                                          onPageChanged: (index, reason) {
-                                            setState(() {
-                                              _current = index;
-                                            });
-                                          }),
-                                    ),
-                                  )
-                                  ,
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: image
-                                        .asMap()
-                                        .entries
-                                        .map((entry) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          _controller.animateToPage(entry.key);
-                                          print(_homeController.data);
-                                        },
+                            );
+  }
+  ),
+                            GetX<HomeGetxController>(
+                                builder: (HomeGetxController controller) {
+
+                                  final List<String> image = [
+                                    for(var i = 0; i < controller.data.value[0].slider.length; i++)
+                                      controller.data.value[0].slider[i].imageUrl
+                                  ];
+                                  final List<Widget> imageSliders = image
+                                      .map((item) =>
+                                      Container(
                                         child: Container(
-                                          width: SizeConfig.scaleWidth(8),
-                                          height: SizeConfig.scaleHeight(8),
-                                          margin: EdgeInsets.symmetric(
-                                              vertical: 8.0, horizontal: 4.0),
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: (Theme
-                                                  .of(context)
-                                                  .brightness == Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black)
-                                                  .withOpacity(
-                                                  _current == entry.key
-                                                      ? 0.9
-                                                      : 0.4)),
+                                          margin: EdgeInsets.all(5.0),
+                                          child: ClipRRect(
+                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                              child: Stack(
+                                                children: <Widget>[
+                                                  Image.network(item, fit: BoxFit.cover, width: 1000.0),
+
+                                                ],
+                                              )),
                                         ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: SizeConfig.scaleHeight(8),),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Align(
-                                  alignment: SharedPrefController()
-                                      .languageCode == 'en'
-                                      ? Alignment.topLeft
-                                      : Alignment.topRight,
-                                  child: TextCustom(
-                                      title: AppLocalizations.of(context)!
-                                          .category,
-                                      fontfamily: 'pop',
-                                      fontweight: FontWeight.w700,
-                                      size: SizeConfig.scaleTextFont(20),
-                                      color: AppColors.TITLE_APP_BAR,
-                                      align: TextAlign.start),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    print(_homeController.data[0].categories[2]
-                                        .nameEn);
-                                    Navigator.pushNamed(
-                                        context, '/category_screen');
-                                  },
-                                  child: Align(
-                                    alignment: SharedPrefController()
-                                        .languageCode == 'en' ? Alignment
-                                        .topRight : Alignment.topLeft,
-                                    child: TextCustom(
-                                        title: AppLocalizations.of(context)!
-                                            .see_all,
-                                        fontfamily: 'pop',
-                                        fontweight: FontWeight.w500,
-                                        size: SizeConfig.scaleTextFont(13),
-                                        color: AppColors.TITLE_APP_BAR,
-                                        align: TextAlign.start),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: SizeConfig.scaleHeight(8),),
-                            Container(
-                              height: SizeConfig.scaleHeight(75),
-                              child: ListView.separated(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 5,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return ContanierItemCategory(title:
-                                  SharedPrefController().languageCode == 'en'
-                                      ? _homeController.data[0]
-                                      .categories[index].nameEn
+                                      ))
+                                      .toList();
+                                  return controller.loading.value
+                                      ? Center(
+                                    child: CircularProgressIndicator(),
+                                  )
                                       :
-                                  _homeController.data[0].categories[index]
-                                      .nameAr
-                                    ,
-                                    image: _homeController.data[0]
-                                        .categories[index].imageUrl,
-                                    onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(
-                                          builder: (context) =>
-                                              SubCategoriesScreen(
-                                                categoriesId: _homeController
-                                                    .data[0].categories[index]
-                                                    .id,)),);
-                                    },);
-                                },
-                                separatorBuilder: (context, index) {
-                                  return SizedBox(
-                                    width: SizeConfig.scaleWidth(22),);
-                                },
-                              ),
-                            ),
-                            SizedBox(height: SizeConfig.scaleHeight(8),),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            Column(
                               children: [
-                                Align(
-                                  alignment: SharedPrefController()
-                                      .languageCode == 'en'
-                                      ? Alignment.topLeft
-                                      : Alignment.topRight,
-                                  child: TextCustom(
-                                      title: AppLocalizations.of(context)!
-                                          .last_products,
-                                      fontfamily: 'pop',
-                                      fontweight: FontWeight.w700,
-                                      size: SizeConfig.scaleTextFont(20),
-                                      color: AppColors.TITLE_APP_BAR,
-                                      align: TextAlign.start),
+                                SizedBox(height: SizeConfig.scaleHeight(20),),
+                                Container(
+                                  width: double.infinity,
+                                  height: SizeConfig.scaleHeight(190),
+                                  child: Column(
+                                    children: [
+                                      Expanded(
+                                        child: CarouselSlider(
+                                          items: imageSliders,
+                                          carouselController: _controller,
+                                          options: CarouselOptions(
+                                              autoPlay: true,
+                                              enlargeCenterPage: true,
+                                              aspectRatio: 2.0,
+                                              onPageChanged: (index, reason) {
+                                                setState(() {
+                                                  _current = index;
+                                                });
+                                              }),
+                                        ),
+                                      )
+                                      ,
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: image
+                                            .asMap()
+                                            .entries
+                                            .map((entry) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              _controller.animateToPage(entry.key);
+                                              print(_homeController.data);
+                                            },
+                                            child: Container(
+                                              width: SizeConfig.scaleWidth(8),
+                                              height: SizeConfig.scaleHeight(8),
+                                              margin: EdgeInsets.symmetric(
+                                                  vertical: 8.0, horizontal: 4.0),
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: (Theme
+                                                      .of(context)
+                                                      .brightness == Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black)
+                                                      .withOpacity(
+                                                      _current == entry.key
+                                                          ? 0.9
+                                                          : 0.4)),
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                InkWell(
-                                  onTap: () {
-Navigator.pushNamed(context, '/last_product_screen');
-                                  },
-                                  child: Align(
-                                    alignment: SharedPrefController()
-                                        .languageCode == 'en' ? Alignment
-                                        .topRight : Alignment.topLeft,
-                                    child: TextCustom(
-                                        title: AppLocalizations.of(context)!
-                                            .see_all,
-                                        fontfamily: 'pop',
-                                        fontweight: FontWeight.w500,
-                                        size: SizeConfig.scaleTextFont(13),
-                                        color: AppColors.TITLE_APP_BAR,
-                                        align: TextAlign.start),
+                                SizedBox(height: SizeConfig.scaleHeight(8),),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Align(
+                                      alignment: SharedPrefController()
+                                          .languageCode == 'en'
+                                          ? Alignment.topLeft
+                                          : Alignment.topRight,
+                                      child: TextCustom(
+                                          title: AppLocalizations.of(context)!
+                                              .category,
+                                          fontfamily: 'pop',
+                                          fontweight: FontWeight.w700,
+                                          size: SizeConfig.scaleTextFont(20),
+                                          color: AppColors.TITLE_APP_BAR,
+                                          align: TextAlign.start),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        print(_homeController.data[0].categories[2]
+                                            .nameEn);
+                                        Navigator.pushNamed(
+                                            context, '/category_screen');
+                                      },
+                                      child: Align(
+                                        alignment: SharedPrefController()
+                                            .languageCode == 'en' ? Alignment
+                                            .topRight : Alignment.topLeft,
+                                        child: TextCustom(
+                                            title: AppLocalizations.of(context)!
+                                                .see_all,
+                                            fontfamily: 'pop',
+                                            fontweight: FontWeight.w500,
+                                            size: SizeConfig.scaleTextFont(13),
+                                            color: AppColors.TITLE_APP_BAR,
+                                            align: TextAlign.start),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: SizeConfig.scaleHeight(8),),
+                                Container(
+                                  height: SizeConfig.scaleHeight(75),
+                                  child: ListView.separated(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: 5,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return ContanierItemCategory(title:
+                                      SharedPrefController().languageCode == 'en'
+                                          ? _homeController.data[0]
+                                          .categories[index].nameEn
+                                          :
+                                      _homeController.data[0].categories[index]
+                                          .nameAr
+                                        ,
+                                        image: _homeController.data[0]
+                                            .categories[index].imageUrl,
+                                        onPressed: () {
+                                          Navigator.push(context, MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SubCategoriesScreen(
+                                                    categoriesId: _homeController
+                                                        .data[0].categories[index]
+                                                        .id,)),);
+                                        },);
+                                    },
+                                    separatorBuilder: (context, index) {
+                                      return SizedBox(
+                                        width: SizeConfig.scaleWidth(22),);
+                                    },
+                                  ),
+                                ),
+                                SizedBox(height: SizeConfig.scaleHeight(8),),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Align(
+                                      alignment: SharedPrefController()
+                                          .languageCode == 'en'
+                                          ? Alignment.topLeft
+                                          : Alignment.topRight,
+                                      child: TextCustom(
+                                          title: AppLocalizations.of(context)!
+                                              .last_products,
+                                          fontfamily: 'pop',
+                                          fontweight: FontWeight.w700,
+                                          size: SizeConfig.scaleTextFont(20),
+                                          color: AppColors.TITLE_APP_BAR,
+                                          align: TextAlign.start),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamed(context, '/last_product_screen');
+                                      },
+                                      child: Align(
+                                        alignment: SharedPrefController()
+                                            .languageCode == 'en' ? Alignment
+                                            .topRight : Alignment.topLeft,
+                                        child: TextCustom(
+                                            title: AppLocalizations.of(context)!
+                                                .see_all,
+                                            fontfamily: 'pop',
+                                            fontweight: FontWeight.w500,
+                                            size: SizeConfig.scaleTextFont(13),
+                                            color: AppColors.TITLE_APP_BAR,
+                                            align: TextAlign.start),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: SizeConfig.scaleHeight(8),),
+                                Container(
+                                  height: 151,
+                                  width: double.infinity,
+                                  child: ListView.separated(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: 3,
+                                    // _homeController.data[0].latestProducts.length,
+
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return CardLastProduct(
+                                        title: SharedPrefController()
+                                            .languageCode == 'en' ?
+                                        _homeController.data[0].latestProducts[index]
+                                            .nameEn :
+                                        _homeController.data[0].latestProducts[index]
+                                            .nameEn,
+                                        price: _homeController.data[0]
+                                            .latestProducts[index].price,
+                                        mainImage: _homeController.data[0]
+                                            .latestProducts[index].imageUrl,
+                                        quaitity: _homeController.data[0]
+                                            .latestProducts[index].quantity,
+                                        detiles: '',
+                                        onPress: () {},);
+                                    },
+                                    separatorBuilder: (context, index) {
+                                      return SizedBox(
+                                        width: SizeConfig.scaleWidth(8),);
+                                    },
+                                  ),
+                                ),
+                                SizedBox(height: SizeConfig.scaleHeight(8),),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Align(
+                                      alignment: SharedPrefController()
+                                          .languageCode == 'en'
+                                          ? Alignment.topLeft
+                                          : Alignment.topRight,
+                                      child: TextCustom(
+                                          title: AppLocalizations.of(context)!
+                                              .famous_products,
+                                          fontfamily: 'pop',
+                                          fontweight: FontWeight.w700,
+                                          size: SizeConfig.scaleTextFont(20),
+                                          color: AppColors.TITLE_APP_BAR,
+                                          align: TextAlign.start),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+
+                                      },
+                                      child: Align(
+                                        alignment: SharedPrefController()
+                                            .languageCode == 'en' ? Alignment
+                                            .topRight : Alignment.topLeft,
+                                        child: TextCustom(
+                                            title: AppLocalizations.of(context)!
+                                                .see_all,
+                                            fontfamily: 'pop',
+                                            fontweight: FontWeight.w500,
+                                            size: SizeConfig.scaleTextFont(13),
+                                            color: AppColors.TITLE_APP_BAR,
+                                            align: TextAlign.start),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: SizeConfig.scaleHeight(8),),
+                                Container(
+                                  height: 151,
+                                  width: double.infinity,
+                                  child: ListView.separated(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: 3,
+                                    // _homeController.data[0].latestProducts.length,
+
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return CardLastProduct(
+                                        title: SharedPrefController()
+                                            .languageCode == 'en' ?
+                                        _homeController.data[0].famousProducts[index]
+                                            .nameEn :
+                                        _homeController.data[0].famousProducts[index]
+                                            .nameEn,
+                                        price: _homeController.data[0]
+                                            .famousProducts[index].price,
+                                        mainImage: _homeController.data[0]
+                                            .famousProducts[index].imageUrl,
+                                        quaitity: _homeController.data[0]
+                                            .famousProducts[index].quantity,
+                                        detiles: '',
+                                        onPress: () {},);
+                                    },
+                                    separatorBuilder: (context, index) {
+                                      return SizedBox(
+                                        width: SizeConfig.scaleWidth(8),);
+                                    },
                                   ),
                                 ),
                               ],
-                            ),
-                            SizedBox(height: SizeConfig.scaleHeight(8),),
-                            Container(
-                              height: 151,
-                              width: double.infinity,
-                              child: ListView.separated(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 3,
-                                // _homeController.data[0].latestProducts.length,
-
-                                itemBuilder: (BuildContext context, int index) {
-                                  return CardLastProduct(
-                                    title: SharedPrefController()
-                                        .languageCode == 'en' ?
-                                    _homeController.data[0].latestProducts[0]
-                                        .nameEn :
-                                    _homeController.data[0].latestProducts[0]
-                                        .nameEn,
-                                    price: _homeController.data[0]
-                                        .latestProducts[0].price,
-                                    mainImage: _homeController.data[0]
-                                        .latestProducts[0].imageUrl,
-                                    quaitity: _homeController.data[0]
-                                        .latestProducts[0].quantity,
-                                    detiles: '',
-                                    onPress: () {},);
-                                },
-                                separatorBuilder: (context, index) {
-                                  return SizedBox(
-                                    width: SizeConfig.scaleWidth(8),);
-                                },
-                              ),
-                            ),
-                            SizedBox(height: SizeConfig.scaleHeight(8),),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Align(
-                                  alignment: SharedPrefController()
-                                      .languageCode == 'en'
-                                      ? Alignment.topLeft
-                                      : Alignment.topRight,
-                                  child: TextCustom(
-                                      title: AppLocalizations.of(context)!
-                                          .famous_products,
-                                      fontfamily: 'pop',
-                                      fontweight: FontWeight.w700,
-                                      size: SizeConfig.scaleTextFont(20),
-                                      color: AppColors.TITLE_APP_BAR,
-                                      align: TextAlign.start),
-                                ),
-                                InkWell(
-                                  onTap: () {
-
-                                  },
-                                  child: Align(
-                                    alignment: SharedPrefController()
-                                        .languageCode == 'en' ? Alignment
-                                        .topRight : Alignment.topLeft,
-                                    child: TextCustom(
-                                        title: AppLocalizations.of(context)!
-                                            .see_all,
-                                        fontfamily: 'pop',
-                                        fontweight: FontWeight.w500,
-                                        size: SizeConfig.scaleTextFont(13),
-                                        color: AppColors.TITLE_APP_BAR,
-                                        align: TextAlign.start),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: SizeConfig.scaleHeight(8),),
-                            Container(
-                              height: 151,
-                              width: double.infinity,
-                              child: ListView.separated(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 3,
-                                // _homeController.data[0].latestProducts.length,
-
-                                itemBuilder: (BuildContext context, int index) {
-                                  return CardLastProduct(
-                                    title: SharedPrefController()
-                                        .languageCode == 'en' ?
-                                    _homeController.data[0].famousProducts[0]
-                                        .nameEn :
-                                    _homeController.data[0].famousProducts[0]
-                                        .nameEn,
-                                    price: _homeController.data[0]
-                                        .famousProducts[0].price,
-                                    mainImage: _homeController.data[0]
-                                        .famousProducts[0].imageUrl,
-                                    quaitity: _homeController.data[0]
-                                        .famousProducts[0].quantity,
-                                    detiles: '',
-                                    onPress: () {},);
-                                },
-                                separatorBuilder: (context, index) {
-                                  return SizedBox(
-                                    width: SizeConfig.scaleWidth(8),);
-                                },
-                              ),
-                            ),
+                            );
+                }
+          ),
 
                           ]),
                     )
-                );
-              }
-          ),
-        ));
+                )
+
+        );
   }
 }

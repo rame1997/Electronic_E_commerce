@@ -41,6 +41,8 @@ dependencies:
   pin_code_fields: ^7.3.0
   carousel_slider: ^4.0.0
   flutter_rating_bar: ^4.0.0
+  favorite_button: ^0.0.4
+  flutter_credit_card: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

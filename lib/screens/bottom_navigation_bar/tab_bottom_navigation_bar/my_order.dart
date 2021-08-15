@@ -27,7 +27,7 @@ class _MyOrderProductsScreenState extends State<MyOrderProductsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(products: products),
+  //    body: Body(products: products),
       bottomNavigationBar: CheckoutCard(),
     );
   }

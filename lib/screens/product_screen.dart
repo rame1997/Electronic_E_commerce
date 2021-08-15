@@ -63,7 +63,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       ),
                       itemBuilder: (context, index) {
                         return ProductItem(onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(Product: controller.products[index])),);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(ProductId: controller.products[index].id,)),);
 
                         }, product:controller.products[index],
 

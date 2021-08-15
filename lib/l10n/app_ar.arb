@@ -57,7 +57,10 @@
   "setting": "الضبط",
   "see_all": "عرض الجميع",
   "sub_categories": "فئة فرعية",
+  "favorite_product": "المنتجات المفضلة",
   "product": " منتج",
+  "all_product": "كل المنتجات",
+  "remove_all": "حذف الكل",
   "language": "اللغة",
   "selected_language": "اللغة المحددة",
   "en": "EN",
@@ -91,7 +94,15 @@
   "quantity":"الكمية",
   "add_to_cart":"اضافة الي السلة",
   "added_to_cart":"تمت الاضافة الي السلة",
-  "message_counter_product":"عدد القطع المطلوبة اكبر من المتاحة يرجي تعديل الطلب"
-
+  "your_cart":"سلتي",
+  "message_counter_product":"عدد القطع المطلوبة اكبر من المتاحة يرجي تعديل الطلب",
+  "payment_option":"اختيار الدفع",
+  "electronic_payment":"دفع الكتروني",
+  "cash":"دفع نقدي",
+  "thank":"شكرا ",
+  "credit_card":"بطاقة ائتمانية",
+  "validate":"تحقق",
+  "card":"بطاقات",
+  "add_card":"اضافة بطاقات"
 
 }

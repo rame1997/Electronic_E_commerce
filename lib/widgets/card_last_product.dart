@@ -28,58 +28,60 @@ class CardLastProduct extends StatelessWidget {
           color: Colors.white,
           shape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          child: Column(
-            children: [
-              Container(
-                child:
-                Image.network(mainImage,fit: BoxFit.cover,width: double.infinity,),
-                width: double.infinity,
-                height: SizeConfig.scaleHeight(70),
-              ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  child:
+                  Image.network(mainImage,fit: BoxFit.cover,width: double.infinity,),
+                  width: double.infinity,
+                  height: SizeConfig.scaleHeight(70),
+                ),
 
-              SizedBox(height: SizeConfig.scaleHeight(10),),
-              Padding(
-                padding:  EdgeInsets.only(left: SizeConfig.scaleWidth(4),right: SizeConfig.scaleWidth(4)),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: SharedPrefController().languageCode=='en'?Alignment.topLeft:Alignment.topRight,
-                      child:  TextCustom(
-                        title: title,
-                        fontfamily: 'pop',
-                        fontweight: FontWeight.w600,
-                        size: SizeConfig.scaleTextFont(12),
-                        align: TextAlign.center,
-                        color: AppColors.TITLE_ON_BOARDING,
-                      ),),
-                    SizedBox(height: SizeConfig.scaleHeight(5),),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextCustom(
-                          title: '\$'+price.toString(),
+                SizedBox(height: SizeConfig.scaleHeight(10),),
+                Padding(
+                  padding:  EdgeInsets.only(left: SizeConfig.scaleWidth(4),right: SizeConfig.scaleWidth(4)),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: SharedPrefController().languageCode=='en'?Alignment.topLeft:Alignment.topRight,
+                        child:  TextCustom(
+                          title: title,
                           fontfamily: 'pop',
-                          fontweight: FontWeight.w700,
-                          size: SizeConfig.scaleTextFont(14),
-                          align: TextAlign.center,
-                          color: AppColors.TITLE_ON_BOARDING,
-                        ),
-                        TextCustom(
-                          title: quaitity.toString()+' Piecs',
-                          fontfamily: 'pop',
-                          fontweight: FontWeight.w500,
+                          fontweight: FontWeight.w600,
                           size: SizeConfig.scaleTextFont(12),
                           align: TextAlign.center,
                           color: AppColors.TITLE_ON_BOARDING,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              )
+                        ),),
+                      SizedBox(height: SizeConfig.scaleHeight(5),),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextCustom(
+                            title: '\$'+price.toString(),
+                            fontfamily: 'pop',
+                            fontweight: FontWeight.w700,
+                            size: SizeConfig.scaleTextFont(14),
+                            align: TextAlign.center,
+                            color: AppColors.TITLE_ON_BOARDING,
+                          ),
+                          TextCustom(
+                            title: quaitity.toString()+' Piecs',
+                            fontfamily: 'pop',
+                            fontweight: FontWeight.w500,
+                            size: SizeConfig.scaleTextFont(12),
+                            align: TextAlign.center,
+                            color: AppColors.TITLE_ON_BOARDING,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
 
 
-            ],
+              ],
+            ),
           ),
         ),
       ),

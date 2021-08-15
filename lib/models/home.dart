@@ -1,5 +1,6 @@
 import 'package:electronic_e_commerce/models/categories.dart';
 import 'package:electronic_e_commerce/models/product.dart';
+import 'package:electronic_e_commerce/models/slider.dart';
 
 class Home {
  late bool status;
@@ -20,7 +21,7 @@ class Home {
 }
 
 class Data {
- late List<Slider> slider;
+ late List<SliderList> slider;
  late List<Categories> categories;
  late List<Products> latestProducts;
  late List<Products> famousProducts;
@@ -28,9 +29,9 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['slider'] != null) {
-      slider = <Slider>[];
+      slider = <SliderList>[];
       json['slider'].forEach((v) {
-        slider.add(new Slider.fromJson(v));
+        slider.add(new SliderList.fromJson(v));
       });
     }
     if (json['categories'] != null) {
@@ -73,26 +74,7 @@ class Data {
   }
 }
 
-class Slider {
- late int id;
- late  String url;
- late  String imageUrl;
 
-
-  Slider.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    url = json['url'];
-    imageUrl = json['image_url'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['url'] = this.url;
-    data['image_url'] = this.imageUrl;
-    return data;
-  }
-}
 
 
 

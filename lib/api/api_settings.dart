@@ -19,5 +19,9 @@ mixin ApiSettings {
   static const String CONTACT_REQUESTES = _API_BASE_URL + "contact-requests";
   static const String Question = _API_BASE_URL + "faqs";
   static const String RATE = _API_BASE_URL + "products/rate";
+  static const String ADD_FAVARITE_PRODUCT = _API_BASE_URL + "favorite-products";
+  static const String READ_FAVARITE_PRODUCT = _API_BASE_URL + "favorite-products";
+  static const String ADDRESS = _API_BASE_URL + "addresses";
+  static const String PAYMENT_CARDS = _API_BASE_URL + "payment-cards";
 
 }

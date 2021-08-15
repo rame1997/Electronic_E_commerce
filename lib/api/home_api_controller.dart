@@ -22,8 +22,11 @@ class HomeApiController with ApiMixin, Helpers {
     if (isSuccessRequest(response.statusCode)) {
       var jsonResponse = jsonDecode(response.body);
       var jsonObject = jsonResponse['data'];
+
       Data data = Data.fromJson(jsonObject);
-    //  print(data.slider[0].imageUrl);
+      print('rami'+[data].toString());
+
+      //  print(data.slider[0].imageUrl);
 
       return [data];
       //return data.list;

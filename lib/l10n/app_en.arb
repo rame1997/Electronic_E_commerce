@@ -58,6 +58,9 @@
   "see_all": "See All",
   "sub_categories": " Sub Categories",
   "product": " Product",
+  "all_product": "All Product",
+  "remove_all": "Remove Product",
+  "favorite_product": "Favorite Product",
   "language": "Language",
   "selected_language": "Selected language",
   "en": "EN",
@@ -91,6 +94,14 @@
   "quantity":"Quantity",
   "add_to_cart":"Add To Cart",
   "added_to_cart":"Added to cart",
-  "message_counter_product":"The number of pieces required is greater than the available, please amend the order "
-
+  "your_cart":"Your Cart",
+  "message_counter_product":"The number of pieces required is greater than the available, please amend the order ",
+  "payment_option":"Payment Option",
+  "electronic_payment":"electronic payment",
+  "cash":"Cash",
+  "thank":"Thank you",
+  "credit_card":"credit_card",
+  "validate":"Validate",
+  "card":"Cards",
+  "add_card":"Add Cards"
 }
