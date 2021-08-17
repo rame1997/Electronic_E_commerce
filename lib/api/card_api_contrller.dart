@@ -13,10 +13,12 @@ import 'api_settings.dart';
 class CardApiController with ApiMixin, Helpers {
   Future<bool> cardRequests(BuildContext context,
       {required String holder_name, required String card_number, required String exp_date,
-        required int cvv, required String type}) async {
-    var response = await http.post(getUrl(ApiSettings.CONTACT_REQUESTES),
-        body: {'holder_name': holder_name, 'card_number': card_number,
-          'exp_date': exp_date,'cvv': cvv.toString(),
+        required String cvv, required String type}) async {
+    String number=card_number.replaceAll(new RegExp(r"\s+"), "");
+   List<String>exp= exp_date.split('/');
+    var response = await http.post(getUrl(ApiSettings.PAYMENT_CARDS),
+        body: {'holder_name': holder_name, 'card_number': int.parse(number).toString(),
+          'exp_date': '20'+exp[1]+'-'+exp[0]+'-'+'01','cvv': cvv,
           'type': type,}, headers: {
           HttpHeaders.authorizationHeader:'Bearer '+SharedPrefController().token,
           'X-Requested-With':'XMLHttpRequest',
@@ -27,13 +29,13 @@ class CardApiController with ApiMixin, Helpers {
       showSnackBar(
           context,
           message: jsonDecode(response.body)['message'],
-          error: true);
+          error: false);
       return true;
     } else if (response.statusCode != 500) {
       showSnackBar(
           context,
           message: jsonDecode(response.body)['message'],
-          error: false);
+          error: true);
     } else {
       handleServerError(context);
     }
@@ -41,6 +43,7 @@ class CardApiController with ApiMixin, Helpers {
     return false;
   }
   Future<List<CardModel>> getCard() async {
+    print('rami');
     var url = Uri.parse(ApiSettings.PAYMENT_CARDS);
     var response = await http.get(url,headers: {
       HttpHeaders.authorizationHeader:'Bearer '+ SharedPrefController().token,
@@ -68,6 +71,36 @@ class CardApiController with ApiMixin, Helpers {
           error: false);
       return true;
     }
+    return false;
+  }
+  Future<bool> updateCard({required BuildContext context,required int id,required String holder_name, required String card_number, required String exp_date,
+    required String cvv, required String type}) async {
+    String number=card_number.replaceAll(new RegExp(r"\s+"), "");
+    List<String>exp= exp_date.split('/');
+    var response = await http.put(
+      getUrl(ApiSettings.PAYMENT_CARDS + '/${id}'),
+      headers: {
+        HttpHeaders.authorizationHeader:'Bearer '+SharedPrefController().token,
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+        body: {'holder_name': holder_name, 'card_number': int.parse(number).toString(),
+          'exp_date': '20'+exp[1]+'-'+exp[0]+'-'+'01','cvv': cvv,
+          'type': type,}
+    );
+    if (isSuccessRequest(response.statusCode)) {
+      showSnackBar(
+          context,
+          message: jsonDecode(response.body)['message'],
+          error: false);
+      return true;
+    } else if (response.statusCode != 500) {
+      showSnackBar(
+          context,
+          message: jsonDecode(response.body)['message'],
+          error: true);
+      return false;
+    }
+    handleServerError(context);
     return false;
   }
 }

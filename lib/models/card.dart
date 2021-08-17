@@ -4,12 +4,13 @@ class CardModel {
   late String holderName;
   late String cardNumber;
   late String expDate;
-  late int cvv;
+  late String cvv;
   late int userId;
   late String createdAt;
   late String updatedAt;
 
 
+  CardModel();
 
   CardModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -17,7 +18,7 @@ class CardModel {
     holderName = json['holder_name'];
     cardNumber = json['card_number'];
     expDate = json['exp_date'];
-    cvv = json['cvv'];
+    cvv = json['cvv'].toString();
     userId = json['user_id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];

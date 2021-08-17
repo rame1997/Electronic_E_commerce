@@ -103,6 +103,18 @@
   "credit_card":"بطاقة ائتمانية",
   "validate":"تحقق",
   "card":"بطاقات",
-  "add_card":"اضافة بطاقات"
-
+  "add_card":"إضافة ، تحديث ، حذف بطاقات",
+  "card_number":"البطاقة ",
+  "card_address":"العنوان ",
+  "card_number_message":"اضغط هنا للتعديل",
+  "address_number_message":"اضغط هنا للتعديل",
+  "add_address":"اضافة بطاقة",
+  "update_address":"تعديل عنوان",
+  "update_Card":"تعديل بطاقة",
+  "info":"معلومات",
+  "add":"اضافة",
+  "number":"الرقم",
+  "expired_date":"تاريخ الانتهاء",
+  "cvv":"الرقم السري",
+  "card_holder":"اسم صاحب البطاقة"
 }

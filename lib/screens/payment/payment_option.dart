@@ -3,7 +3,7 @@ import 'package:electronic_e_commerce/widgets/payment_option_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'card_screen.dart';
+import 'add_card_screen.dart';
 import 'cash_screen.dart';
 
 class PaymentOptionScreen extends StatefulWidget {
@@ -30,7 +30,7 @@ class _PaymentOptionScreenState extends State<PaymentOptionScreen> {
         }, title: AppLocalizations.of(context)!.cash, image: 'images/verification.svg',),
 
                   PaymentOptionItem(onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => CardScreen(),));
+             //     Navigator.push(context, MaterialPageRoute(builder: (context) => AddCardScreen(),));
                   }, title: AppLocalizations.of(context)!.electronic_payment, image: 'images/on_boarding2.svg',),
                 ],
               ),

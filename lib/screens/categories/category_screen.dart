@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:electronic_e_commerce/getx/home_getx_controller.dart';
 import 'package:electronic_e_commerce/preferences/user_preferences.dart';
-import 'package:electronic_e_commerce/screens/sub_categories_screen.dart';
+import 'package:electronic_e_commerce/screens/categories/sub_categories_screen.dart';
 import 'package:electronic_e_commerce/utilities/app_colors.dart';
 import 'package:electronic_e_commerce/utilities/size_config.dart';
 import 'package:electronic_e_commerce/widgets/category_item.dart';

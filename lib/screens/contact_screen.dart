@@ -63,7 +63,7 @@ class _ContantScreenState extends State<ContantScreen>with Helpers {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.arrow_back_ios,
+                    icon: Icon(Icons.arrow_back_outlined,
                         color: AppColors.MAIN_COLORE),
                   ),
                   title: TextCustom(

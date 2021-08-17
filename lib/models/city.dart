@@ -22,6 +22,8 @@ class City {
   }
   static List<City>gender=[City(id: 1,nameEn: 'M',nameAr:'ذكر' ),City(id: 2,nameEn: 'F',nameAr:'انثي' ),
   ];
+  static List<City>typePayment=[City(id: 1,nameEn: 'Master',nameAr:'ماستر كارت' ),City(id: 2,nameEn: 'Visa',nameAr:'فيزا' ),
+  ];
 }
 
 /*class City{

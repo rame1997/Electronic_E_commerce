@@ -15,14 +15,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class AddAddressScreen extends StatefulWidget {
-  const AddAddressScreen({Key? key}) : super(key: key);
+class UpdateAddressScreen extends StatefulWidget {
+Address address;
+
+UpdateAddressScreen({required this.address});
 
   @override
-  _AddAddressScreenState createState() => _AddAddressScreenState();
+  _UpdateAddressScreenState createState() => _UpdateAddressScreenState();
 }
 
-class _AddAddressScreenState extends State<AddAddressScreen> with Helpers{
+class _UpdateAddressScreenState extends State<UpdateAddressScreen> with Helpers{
+  late AddressGetxController controller;
   late TextEditingController _nameTextEditingController;
   late TextEditingController _infoTextEditingController;
   late TextEditingController _numberTextEditingController;
@@ -36,13 +39,15 @@ class _AddAddressScreenState extends State<AddAddressScreen> with Helpers{
   CityGetxController city_getx_controller = Get.put(CityGetxController());
   @override
   void initState() {
-    // TODO: implement initState
+    controller = Get.put(AddressGetxController());
+    // Future.delayed(Duration.zero, () async {
+    //   await AddressGetxController.to.getAddressDetiles(id: widget.addressId);
+    // });
+    _nameTextEditingController = TextEditingController(text:widget.address.name);
+    _infoTextEditingController = TextEditingController(text:widget.address.info);
+    _numberTextEditingController = TextEditingController(text:widget.address.contactNumber);
     super.initState();
-    _nameTextEditingController = TextEditingController();
-    _infoTextEditingController = TextEditingController();
-    _numberTextEditingController = TextEditingController();
   }
-
   @override
   void dispose() {
     // TODO: implement dispose
@@ -58,7 +63,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> with Helpers{
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: TextCustom(
-              title: AppLocalizations.of(context)!.add_address,
+              title: AppLocalizations.of(context)!.update_address,
               fontfamily: 'pop',
               fontweight: FontWeight.w600,
               size: SizeConfig.scaleTextFont(17),
@@ -82,6 +87,21 @@ class _AddAddressScreenState extends State<AddAddressScreen> with Helpers{
               top: SizeConfig.scaleHeight(16)),
           child: Column(
             children: [
+              Align(
+                alignment: SharedPrefController()
+                    .languageCode == 'en'
+                    ? Alignment.centerLeft
+                    : Alignment.centerRight,
+                child: TextCustom(
+                    title: AppLocalizations.of(context)!
+                        .name,
+                    fontfamily: 'pop',
+                    fontweight: FontWeight.w600,
+                    size: SizeConfig.scaleTextFont(14),
+                    color: AppColors.TITLE_APP_BAR,
+                    align: TextAlign.start),
+              ),
+              SizedBox(height: SizeConfig.scaleHeight(7),),
               TextFiled(() {},
                   obscureText: false,
                   hint: AppLocalizations.of(context)!.name,
@@ -92,6 +112,21 @@ class _AddAddressScreenState extends State<AddAddressScreen> with Helpers{
               SizedBox(
                 height: SizeConfig.scaleHeight(16),
               ),
+              Align(
+                alignment: SharedPrefController()
+                    .languageCode == 'en'
+                    ? Alignment.centerLeft
+                    : Alignment.centerRight,
+                child: TextCustom(
+                    title: AppLocalizations.of(context)!
+                        .mobile,
+                    fontfamily: 'pop',
+                    fontweight: FontWeight.w600,
+                    size: SizeConfig.scaleTextFont(14),
+                    color: AppColors.TITLE_APP_BAR,
+                    align: TextAlign.start),
+              ),
+              SizedBox(height: SizeConfig.scaleHeight(7),),
               TextFiled(
                     () {},
                 obscureText: false,
@@ -102,8 +137,23 @@ class _AddAddressScreenState extends State<AddAddressScreen> with Helpers{
                 maxLength: 9,
               ),
               SizedBox(
-                height: SizeConfig.scaleHeight(16),
+                height: SizeConfig.scaleHeight(7),
               ),
+              Align(
+                alignment: SharedPrefController()
+                    .languageCode == 'en'
+                    ? Alignment.centerLeft
+                    : Alignment.centerRight,
+                child: TextCustom(
+                    title: AppLocalizations.of(context)!
+                        .info,
+                    fontfamily: 'pop',
+                    fontweight: FontWeight.w600,
+                    size: SizeConfig.scaleTextFont(14),
+                    color: AppColors.TITLE_APP_BAR,
+                    align: TextAlign.start),
+              ),
+              SizedBox(height: SizeConfig.scaleHeight(7),),
               TextFiledContant(
                   AppLocalizations.of(context)!.info,
                   _infoTextEditingController,
@@ -114,9 +164,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> with Helpers{
               SizedBox(
                 height: SizeConfig.scaleHeight(16),
               ),
-              GetX<CityGetxController>(
-                  builder: (CityGetxController controller) {
-                    return Container(
+                     Container(
                       padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.scaleWidth(8),
                         vertical: SizeConfig.scaleWidth(8),
@@ -143,7 +191,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> with Helpers{
                             AppLocalizations.of(context)!.city,
                           ),
                           items: [
-                            for (var itemCity in controller.city)
+                            for (var itemCity in CityGetxController.to.city.value)
                               DropdownMenuItem<City>(
                                   value: itemCity,
                                   child: Text(
@@ -154,13 +202,12 @@ class _AddAddressScreenState extends State<AddAddressScreen> with Helpers{
                           ],
                         ),
                       ),
-                    );
-                  }),
+                    ),
               SizedBox(
                 height: SizeConfig.scaleHeight(24),
               ),
               button(
-                text: AppLocalizations.of(context)!.add,
+                text: AppLocalizations.of(context)!.update_address,
                 color: AppColors.MAIN_COLORE,
                 onPressed: () async {
                   await performAdd();
@@ -172,6 +219,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> with Helpers{
       ),
     );
   }
+
   Future<void> performAdd() async {
     if (checkData()) {
       await save();
@@ -191,16 +239,19 @@ class _AddAddressScreenState extends State<AddAddressScreen> with Helpers{
 
   Future<void> save() async {
     Address address = Address();
+    address.id=widget.address.id;
     address.name = _nameTextEditingController.text;
     address.contactNumber = _numberTextEditingController.text;
     address.info = _infoTextEditingController.text;
     address.cityId = selectedCity;
-
-    bool status = await AddressGetxController.to.createAddress(
+    address.lang = 0.0;
+    address.lat = 0.0;
+    bool status = await AddressGetxController.to.updateAddress(
         context: context,
         address: address
     );
     if (status) {
+      showSnackBar(context, message: 'Edit Succuss', error: true);
       Navigator.pop(context);
     } else {
       showSnackBar(context, message: 'Please, check data', error: true);
@@ -220,4 +271,3 @@ class _AddAddressScreenState extends State<AddAddressScreen> with Helpers{
     });
   }
 }
-

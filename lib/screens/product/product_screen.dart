@@ -1,6 +1,6 @@
 import 'package:electronic_e_commerce/getx/product_getx_controller.dart';
 import 'package:electronic_e_commerce/models/product.dart';
-import 'package:electronic_e_commerce/screens/product_details_screen.dart';
+import 'package:electronic_e_commerce/screens/product/product_details_screen.dart';
 import 'package:electronic_e_commerce/utilities/size_config.dart';
 import 'package:electronic_e_commerce/widgets/product_item.dart';
 import 'package:electronic_e_commerce/widgets/text.dart';

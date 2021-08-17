@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../product_details_screen.dart';
+import '../../product/product_details_screen.dart';
 
 class FavoriteProductsScreen extends StatefulWidget {
   const FavoriteProductsScreen({Key? key}) : super(key: key);

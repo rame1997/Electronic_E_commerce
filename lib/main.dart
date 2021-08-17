@@ -14,9 +14,9 @@ import 'package:electronic_e_commerce/screens/bottom_navigation_bar/tab_bottom_n
 import 'package:electronic_e_commerce/screens/card/add_card_screen.dart';
 import 'package:electronic_e_commerce/screens/card/card_option_screen.dart';
 import 'package:electronic_e_commerce/screens/cart/cart.dart';
-import 'package:electronic_e_commerce/screens/category_screen.dart';
+import 'package:electronic_e_commerce/screens/categories/category_screen.dart';
 import 'package:electronic_e_commerce/screens/contact_screen.dart';
-import 'package:electronic_e_commerce/screens/last_product_screen.dart';
+import 'package:electronic_e_commerce/screens/product/last_product_screen.dart';
 import 'package:electronic_e_commerce/screens/launch_screen.dart';
 import 'package:electronic_e_commerce/screens/auth/login_screen.dart';
 import 'package:electronic_e_commerce/screens/on_boarding/on_boarding_screen.dart';

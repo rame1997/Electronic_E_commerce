@@ -14,7 +14,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
-import '../../sub_categories_screen.dart';
+import '../../categories/sub_categories_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -34,7 +34,9 @@ class _HomeScreenState extends State<HomeScreen> {
     Get.put(UserGetxController());
     _homeController = Get.put(HomeGetxController());
     cartGetxController = Get.put(CartGetxController());
-    _homeController.getHome();
+    Future.delayed(Duration.zero, () async {
+      await HomeGetxController.to.getHome();
+    });
     }
   int _current = 0;
   final CarouselController _controller = CarouselController();
@@ -173,7 +175,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ? Center(
                                     child: CircularProgressIndicator(),
                                   )
-                                      :
+                                      : controller.data.isNotEmpty
+                                  ?
                             Column(
                               children: [
                                 SizedBox(height: SizeConfig.scaleHeight(20),),
@@ -449,7 +452,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                               ],
-                            );
+                            ) :Center(child: Text('no data'));
                 }
           ),
 

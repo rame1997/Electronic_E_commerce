@@ -17,8 +17,8 @@ class Address {
     name = json['name'];
     info = json['info'];
     contactNumber = json['contact_number'];
-    lat = json['lat'];
-    lang = json['lang'];
+   // lat = json['lat'];
+   // lang = json['lang'];
     cityId = json['city_id'];
     city = (json['city'] != null ? new City.fromJson(json['city']) : null)!;
   }

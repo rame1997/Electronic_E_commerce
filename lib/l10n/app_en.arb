@@ -103,5 +103,19 @@
   "credit_card":"credit_card",
   "validate":"Validate",
   "card":"Cards",
-  "add_card":"Add Cards"
+  "add_card":"Add,Update,delete Cards",
+  "card_number":"Card ",
+  "card_address":"Address ",
+  "card_number_message":"Click here to edit",
+  "address_number_message":"Click here to edit",
+  "add_address":"Add Address",
+  "update_address":"Update Address",
+  "update_Card":"Update Card",
+  "info":"Info",
+  "add":"Add",
+  "number":"Number",
+  "expired_date":"Expired Date",
+  "cvv":"CVV",
+  "card_holder":"Card Holder"
+
 }

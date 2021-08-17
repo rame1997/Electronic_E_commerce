@@ -7,18 +7,21 @@ import 'package:electronic_e_commerce/utilities/size_config.dart';
 import 'package:electronic_e_commerce/widgets/button.dart';
 import 'package:electronic_e_commerce/widgets/drop_down_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_credit_card/flutter_credit_card.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_credit_card/credit_card_form.dart';
+import 'package:flutter_credit_card/credit_card_model.dart';
+import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class AddCardScreen extends StatefulWidget {
-  const AddCardScreen({Key? key}) : super(key: key);
+class UpdateCardScreen extends StatefulWidget {
+  CardModel card;
 
+  UpdateCardScreen({required this.card});
   @override
-  _AddCardScreenState createState() => _AddCardScreenState();
+  _UpdateCardScreenState createState() => _UpdateCardScreenState();
 }
 
-class _AddCardScreenState extends State<AddCardScreen> with Helpers{
+class _UpdateCardScreenState extends State<UpdateCardScreen>with Helpers {
   String cardNumber = '';
   String expiryDate = '';
   String cardHolderName = '';
@@ -31,10 +34,17 @@ class _AddCardScreenState extends State<AddCardScreen> with Helpers{
   @override
   void initState() {
     controller=Get.put(CardGetxController());
+     cardNumber = widget.card.cardNumber;
+     expiryDate = widget.card.expDate;
+     cardHolderName = widget.card.holderName;
+     cvvCode = widget.card.cvv;
+     dropDownTypePayment =  widget.card.type=='Master'?City.typePayment[0]:City.typePayment[1];
+
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
         child: Scaffold(
             appBar: buildAppBar(context),
@@ -71,22 +81,23 @@ class _AddCardScreenState extends State<AddCardScreen> with Helpers{
                             cardNumberDecoration:  InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: AppLocalizations.of(context)!.number,
-                              hintText: 'XXXX XXXX XXXX XXXX',
+                              hintText: widget.card.cardNumber,
                             ),
                             expiryDateDecoration:  InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: AppLocalizations.of(context)!.expired_date,
-                              hintText: 'XX/XX',
+                              hintText: widget.card.expDate,
                             ),
                             cvvCodeDecoration:  InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: AppLocalizations.of(context)!.cvv,
-                              hintText: 'XXX',
+                              hintText: widget.card.cvv,
                             ),
                             cardHolderDecoration:  InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: AppLocalizations.of(context)!.card_holder,
-                            ),
+
+                            ),cvvValidationMessage: '',
 
                             onCreditCardModelChange: onCreditCardModelChange,
                           ),
@@ -115,14 +126,12 @@ class _AddCardScreenState extends State<AddCardScreen> with Helpers{
                                 ),
                                 SizedBox(height: SizeConfig.scaleHeight(18),),
                                 button(
-                                  text: AppLocalizations.of(context)!.validate,
+                                  text: AppLocalizations.of(context)!.update_Card,
                                   color: AppColors.MAIN_COLORE,
                                   onPressed: () async{
                                     if (formKey.currentState!.validate()) {
-                                      await save();
-                                      print('valid!');
+                                      await update();
                                     } else {
-                                      print('invalid!');
                                     }
                                     //      await performUpdateProfile();
                                   },
@@ -143,25 +152,25 @@ class _AddCardScreenState extends State<AddCardScreen> with Helpers{
       title: Column(
         children: [
           Text(
-            AppLocalizations.of(context)!.credit_card,
+            AppLocalizations.of(context)!.update_Card,
             style: TextStyle(color: Colors.black),
           ),
         ],
       ),
     );
   }
-  Future<void> save() async {
-    print(dropDownTypePayment.nameEn);
+  Future<void> update() async {
     CardModel card = CardModel();
+    card.id=widget.card.id;
     card.holderName=cardHolderName;
     card.cardNumber=cardNumber;
     card.expDate=expiryDate;
     card.cvv=cvvCode;
     card.type=dropDownTypePayment.nameEn;
 
-    bool status = await CardGetxController.to.createCard(context, card: card);
+    bool status = await CardGetxController.to.updateCard(context: context, card: card);
     if (status) {
-      showSnackBar(context, message: 'Added done', error: false);
+      showSnackBar(context, message: 'Update done', error: false);
       Navigator.pop(context);
     } else {
     }

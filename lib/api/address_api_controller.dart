@@ -58,7 +58,7 @@ class AddressApiController with ApiMixin, Helpers {
     return [];
   }
   Future<bool> deleteAddress(BuildContext context,{required int id}) async {
-    var url = Uri.parse(ApiSettings.PAYMENT_CARDS+'/$id');
+    var url = Uri.parse(ApiSettings.ADDRESS+'/$id');
     var response = await http.delete(url,headers: {
       HttpHeaders.authorizationHeader:'Bearer '+SharedPrefController().token,
       'X-Requested-With': 'XMLHttpRequest'
@@ -83,9 +83,9 @@ class AddressApiController with ApiMixin, Helpers {
         'name': address.name,
         'info': address.info,
         'contact_number': address.contactNumber,
-        'city_id': address.cityId,
-        'lat': address.lat??'',
-        'lang': address.lang??'',
+        'city_id': address.cityId.toString(),
+        'lat': address.lat.toString(),
+        'lang': address.lang.toString(),
       },
     );
     if (isSuccessRequest(response.statusCode)) {
