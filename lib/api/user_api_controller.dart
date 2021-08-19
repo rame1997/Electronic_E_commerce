@@ -12,9 +12,9 @@ import 'package:http/http.dart' as http;
 
 class UserApiController with ApiMixin, Helpers {
   Future<bool> login(BuildContext context,
-      {required String mobile, required String password}) async {
+      {required String mobile, required String password,required var fcm_token,}) async {
     var response = await http.post(getUrl(ApiSettings.LOGIN),
-        body: {'mobile': mobile, 'password': password});
+        body: {'mobile': mobile, 'password': password, 'fcm_token': fcm_token});
     if (isSuccessRequest(response.statusCode)) {
       var jsonResponse = jsonDecode(response.body);
       var jsonObject = jsonResponse['data'];
@@ -213,4 +213,27 @@ class UserApiController with ApiMixin, Helpers {
 
     return false;
   }
+
+
+  Future<bool> FcmNotifcation(BuildContext context,
+      {required var fcmToken}) async {
+
+    var response = await http.post(getUrl(ApiSettings.REFRESH_FCM_TOKEN),
+        headers: {
+          'lang':SharedPrefController().languageCode,
+        },
+        body: {'fcm_token': fcmToken});
+    if (isSuccessRequest(response.statusCode)) {
+      return true;
+    } else if (response.statusCode != 500) {
+      showSnackBar(
+          context,
+          message: "error token",
+          error: true);
+    }
+    handleServerError(context);
+    return false;
+  }
 }
+
+

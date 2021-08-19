@@ -116,5 +116,10 @@
   "number":"الرقم",
   "expired_date":"تاريخ الانتهاء",
   "cvv":"الرقم السري",
-  "card_holder":"اسم صاحب البطاقة"
+  "card_holder":"اسم صاحب البطاقة",
+  "status":"الحالة",
+  "card_address_option":"اختيار البطاقة والعنوان",
+  "check_out":"شراء",
+  "cart_empty":"السلة فارغة"
+
 }

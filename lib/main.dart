@@ -16,6 +16,7 @@ import 'package:electronic_e_commerce/screens/card/card_option_screen.dart';
 import 'package:electronic_e_commerce/screens/cart/cart.dart';
 import 'package:electronic_e_commerce/screens/categories/category_screen.dart';
 import 'package:electronic_e_commerce/screens/contact_screen.dart';
+import 'package:electronic_e_commerce/screens/payment/card_address_option_Screen.dart';
 import 'package:electronic_e_commerce/screens/product/last_product_screen.dart';
 import 'package:electronic_e_commerce/screens/launch_screen.dart';
 import 'package:electronic_e_commerce/screens/auth/login_screen.dart';
@@ -27,13 +28,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'Database/db_provider.dart';
+import 'firebase/fb_notifications.dart';
 import 'getx/city_getx_controller.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefController().initSharePre();
+  await Firebase.initializeApp();
+  await FbNotifications.initNotifications();
+  await DBProvider().initDatabase();
+
   runApp(MyApp());
 }
 
@@ -84,6 +91,7 @@ class _MyAppState extends State<MyApp> {
             '/address_option_screen': (context) => AddressOptionScreen(),
             '/add_card_screen': (context) => AddCardScreen(),
             '/add_address_screen': (context) => AddAddressScreen(),
+            '/card_address_option_screen': (context) => CardAddressOptionScreen(),
 
 
 

@@ -5,7 +5,7 @@ import 'package:electronic_e_commerce/preferences/user_preferences.dart';
 import 'package:electronic_e_commerce/utilities/app_colors.dart';
 import 'package:electronic_e_commerce/utilities/size_config.dart';
 import 'package:electronic_e_commerce/widgets/button.dart';
-import 'package:electronic_e_commerce/widgets/drop_down_item.dart';
+import 'package:electronic_e_commerce/widgets/drop_down_city_item.dart';
 import 'package:electronic_e_commerce/widgets/text.dart';
 import 'package:electronic_e_commerce/widgets/text_filed.dart';
 import 'package:flutter/material.dart';

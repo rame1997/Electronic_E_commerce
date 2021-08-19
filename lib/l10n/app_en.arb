@@ -97,7 +97,7 @@
   "your_cart":"Your Cart",
   "message_counter_product":"The number of pieces required is greater than the available, please amend the order ",
   "payment_option":"Payment Option",
-  "electronic_payment":"electronic payment",
+  "electronic_payment":"Online",
   "cash":"Cash",
   "thank":"Thank you",
   "credit_card":"credit_card",
@@ -116,6 +116,10 @@
   "number":"Number",
   "expired_date":"Expired Date",
   "cvv":"CVV",
-  "card_holder":"Card Holder"
+  "card_holder":"Card Holder",
+  "status":"Status",
+  "card_address_option":"Card Address Option",
+  "check_out":"Check Out",
+  "cart_empty":"Cart is empty"
 
 }

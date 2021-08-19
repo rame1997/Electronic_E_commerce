@@ -10,6 +10,7 @@ mixin ApiSettings {
   static const String FORGET = _API_BASE_URL + "auth/forget-password";
   static const String RESET = _API_BASE_URL + "auth/reset-password";
   static const String CHANGE_PASSWORD = _API_BASE_URL + "auth/change-password";
+  static const String REFRESH_FCM_TOKEN = _API_BASE_URL + "auth/refresh-fcm-token";
   static const String CITY = _API_BASE_URL + "cities";
   static const String HOME = _API_BASE_URL + "home";
   static const String Categorie = _API_BASE_URL + "categories";
@@ -23,5 +24,6 @@ mixin ApiSettings {
   static const String READ_FAVARITE_PRODUCT = _API_BASE_URL + "favorite-products";
   static const String ADDRESS = _API_BASE_URL + "addresses";
   static const String PAYMENT_CARDS = _API_BASE_URL + "payment-cards";
+  static const String ORDER = _API_BASE_URL + "orders";
 
 }

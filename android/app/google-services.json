@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "57563056990",
+    "project_id": "elektra-92806",
+    "storage_bucket": "elektra-92806.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:57563056990:android:3d94414bc081326f065dcf",
+        "android_client_info": {
+          "package_name": "com.example.electronic_e_commerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "57563056990-iqsr765bg92gcp6658mbg2jngs2ftbr8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuZlAT7Zc6sXI3AOVqiJ9rP_y3HBJm5J0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "57563056990-iqsr765bg92gcp6658mbg2jngs2ftbr8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

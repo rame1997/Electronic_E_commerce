@@ -20,6 +20,10 @@ class ProductGetxController extends GetxController {
     getFavoriteProduct();
     super.onInit();
   }
+  @override
+  void onClose() {
+    super.onClose();
+  }
   Future<void> getProduct({required int id}) async {
     loading.value = true;
     products.value = await productApiController.getProduct(id: id);

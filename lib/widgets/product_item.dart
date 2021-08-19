@@ -61,16 +61,42 @@ class ProductItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              TextCustom(
-                title: '\$' + product.price.toString(),
-                fontfamily: 'pop',
-                fontweight: FontWeight.w600,
-                size: SizeConfig.scaleTextFont(14),
-                align: TextAlign.center,
-                color: AppColors.TITLE_ON_BOARDING,
+              Row(
+                children: [
+                  product.offerPrice==null?
+                  TextCustom(
+                    title: '\$' + product.price.toString(),
+                    fontfamily: 'pop',
+                    fontweight: FontWeight.w600,
+                    size: SizeConfig.scaleTextFont(12),
+                    align: TextAlign.center,
+                    color: AppColors.TITLE_ON_BOARDING,
+                  ): Row(
+                    children: [
+                  Text('\$' +product
+        .price.toString(),
+    style: TextStyle(
+    decoration: TextDecoration.lineThrough,
+    decorationColor: Colors.red,
+    color: AppColors.MAIN_COLORE,
+    fontWeight: FontWeight.w700,
+    fontSize: SizeConfig.scaleTextFont(12),
+    fontFamily: 'pop',)),
+                      Text('\$' +product.offerPrice.toString(),
+                        style: TextStyle(
+                          color: AppColors.MAIN_COLORE,
+                          fontWeight: FontWeight.w600,
+                          fontSize: SizeConfig.scaleTextFont(12),
+                          fontFamily: 'pop',
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
+
               SizedBox(
-                width: SizeConfig.scaleWidth(70),
+                width: SizeConfig.scaleWidth(20),
               ),
               TextCustom(
                 title: product.quantity.toString() + ' Piecs',

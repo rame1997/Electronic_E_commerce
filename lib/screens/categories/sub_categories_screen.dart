@@ -50,19 +50,19 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
 
     ),
       body: Padding(
-    padding:  EdgeInsets.only(left: SizeConfig.scaleWidth(12),right: SizeConfig.scaleWidth(12),),
+    padding:  EdgeInsets.only(left: SizeConfig.scaleWidth(12),right: SizeConfig.scaleWidth(12),top: SizeConfig.scaleHeight(15)),
     child: Column(
     children: [
-    Align(
-    alignment: SharedPrefController().languageCode=='en'?Alignment.topLeft:Alignment.topRight,
-    child: TextCustom(
-    title: AppLocalizations.of(context)!.sub_categories,
-    fontfamily: 'pop',
-    fontweight: FontWeight.w700,
-    size: SizeConfig.scaleTextFont(20),
-    color: AppColors.TITLE_APP_BAR,
-    align: TextAlign.start),
-    ),
+    // Align(
+    // alignment: SharedPrefController().languageCode=='en'?Alignment.topLeft:Alignment.topRight,
+    // child: TextCustom(
+    // title: AppLocalizations.of(context)!.sub_categories,
+    // fontfamily: 'pop',
+    // fontweight: FontWeight.w700,
+    // size: SizeConfig.scaleTextFont(20),
+    // color: AppColors.TITLE_APP_BAR,
+    // align: TextAlign.start),
+    // ),
     Container(
           child: GetX<CategoryGetxController>(
             builder: (CategoryGetxController controller) {

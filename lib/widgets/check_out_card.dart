@@ -1,13 +1,13 @@
 import 'package:electronic_e_commerce/getx/cart_getx_controller.dart';
+import 'package:electronic_e_commerce/mixins/helpers.dart';
 import 'package:electronic_e_commerce/utilities/app_colors.dart';
 import 'package:electronic_e_commerce/utilities/size_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'button.dart';
 
-class CheckoutCard extends StatelessWidget {
+class CheckoutCard extends StatelessWidget with Helpers{
 
 
   @override
@@ -60,10 +60,18 @@ class CheckoutCard extends StatelessWidget {
                         width: SizeConfig.scaleWidth(190),
                         child:
                         button(
-                          text:"Check Out", //AppLocalizations.of(context)!.save,
+                          text:AppLocalizations.of(context)!.check_out,
                           color: AppColors.MAIN_COLORE,
                           onPressed: () {
-                            Navigator.pushNamed(context, '/payment_option_screen');
+                            if(controller.cart.isNotEmpty) {
+                              Navigator.pushNamed(
+                                  context, '/payment_option_screen');
+                            }else{
+                              showSnackBar(
+                                  context,
+                                  message:AppLocalizations.of(context)!.cart_empty,
+                                  error: true);
+                            }
                           },
                         ),
                       ),

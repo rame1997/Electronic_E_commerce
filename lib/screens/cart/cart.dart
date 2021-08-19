@@ -60,7 +60,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ),
             SizedBox(height: SizeConfig.scaleHeight(15),),
-            Expanded(child:  Body(products: controller.cart.value, quitity: controller.quitityCount.value,))
+            Expanded(child:  Body(products: controller.cartDetailes.value, cart: controller.cart.value,))
 
           ],
         );

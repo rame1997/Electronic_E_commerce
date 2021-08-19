@@ -7,6 +7,7 @@ import 'package:electronic_e_commerce/widgets/button.dart';
 import 'package:electronic_e_commerce/widgets/text.dart';
 import 'package:electronic_e_commerce/widgets/text_filed.dart';
 import 'package:electronic_e_commerce/widgets/text_filed_passwod.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -175,6 +176,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers{
   }
   Future performLogin() async{
     if (checkData()) {
+    //  await FCM();
       await login();
     }
   }
@@ -190,14 +192,26 @@ class _LoginScreenState extends State<LoginScreen> with Helpers{
   }
 
   Future login()async {
+    var token= await FirebaseMessaging.instance.getToken();
     bool loggedIn = await UserApiController().login(context,
       mobile: _mobileTextEditingController.text,
-        password: _passwordTextEditingController.text,);
+        password: _passwordTextEditingController.text, fcm_token: token,);
 
     if (loggedIn) {
       navigateToHome();
     }else{
       showSnackBar(context,message: 'The login information is incorrect!',error: true);
+    }
+  }
+  Future FCM()async {
+    var token= await FirebaseMessaging.instance.getToken();
+    bool loggedIn = await UserApiController().FcmNotifcation(context, fcmToken: token,
+
+       );
+
+    if (loggedIn) {
+    }else{
+      showSnackBar(context,message: 'The token information is incorrect!',error: true);
     }
   }
 

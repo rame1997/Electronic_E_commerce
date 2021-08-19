@@ -3,6 +3,7 @@ import 'package:electronic_e_commerce/models/question.dart';
 
 import 'address.dart';
 import 'city.dart';
+import 'order.dart';
 
 class BaseResponse<T> {
  late  bool status;
@@ -35,6 +36,11 @@ class BaseResponse<T> {
       if(T==Address){
         json['list'].forEach((v) {
           list.add(Address.fromJson(v) as T);
+        });
+      }
+      if(T==Order){
+        json['list'].forEach((v) {
+          list.add(Order.fromJson(v) as T);
         });
       }
   }

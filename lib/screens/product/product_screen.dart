@@ -48,11 +48,10 @@ class _ProductScreenState extends State<ProductScreen> {
                 padding:  EdgeInsets.only(left: SizeConfig.scaleWidth(12),right: SizeConfig.scaleWidth(12),),
                 child: GetX<ProductGetxController>(
     builder: (ProductGetxController controller) {
-    return controller.products.isEmpty
-    ? Center(
-    child: CircularProgressIndicator(),
-    )
-        : Scrollbar(
+    return  controller.loading.value
+        ? Center(child: CircularProgressIndicator())
+        : controller.products.isNotEmpty
+        ? Scrollbar(
                   child: GridView.builder(
                       itemCount: controller.products.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -69,7 +68,9 @@ class _ProductScreenState extends State<ProductScreen> {
 
                         );
                       }),
-                );}),
+                ):Center(child: Text('No data',style: TextStyle(
+      fontSize: 50
+    ),));}),
               ))));
 
   }

@@ -1,4 +1,6 @@
 import 'package:electronic_e_commerce/getx/cart_getx_controller.dart';
+import 'package:electronic_e_commerce/models/cart.dart';
+
 import 'package:electronic_e_commerce/models/product.dart';
 import 'package:electronic_e_commerce/models/product_detiles.dart';
 import 'package:electronic_e_commerce/utilities/size_config.dart';
@@ -10,10 +12,11 @@ import 'cart_card.dart';
 
 
 class Body extends StatefulWidget {
-  List<ProductDetails> products;
-  List<int> quitity;
 
-  Body({required this.products,required this.quitity});
+  List<ProductDetails> products;
+  List<Cart> cart;
+
+  Body({required this.products,required this.cart});
 
   @override
   _BodyState createState() => _BodyState();
@@ -53,8 +56,8 @@ class _BodyState extends State<Body> {
                 ],
               ),
             ),
-            child: CartCard(Product: widget.products[index], qunitity: widget.quitity[index], onPress:(){
-              controller.del(index);
+            child: CartCard(Product: widget.products[index], qunitity: widget.cart[index].quantity, onPress:(){
+              controller.del(widget.products[index].id);
             },),//cart: demoCarts[index]
           ),
         ),

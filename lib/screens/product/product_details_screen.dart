@@ -248,20 +248,39 @@ int _current=0;
                 children: <Widget>[
                   Text(AppLocalizations.of(context)!.price),
                   SizedBox(height: SizeConfig.scaleHeight(5)),
+                  controller.productsDetiles.value
+                      .offerPrice==0?
                   TextCustom(
-                    title: controller.productsDetiles.value
-                        .offerPrice != null
-                        ? '\$' +
-                        controller.productsDetiles.value.price
-                            .toString()
-                        : '\$' +
-                        controller.productsDetiles.value.offerPrice
-                            .toString() + ' sale',
+                    title: '\$' + controller.productsDetiles.value
+                        .price.toString(),
                     fontfamily: 'pop',
                     fontweight: FontWeight.w700,
                     size: SizeConfig.scaleTextFont(12),
                     align: TextAlign.center,
                     color: AppColors.TITLE_ON_BOARDING,
+                  ): Row(
+                    children: [
+                      Text(controller.productsDetiles.value
+                          .offerPrice.toString(),
+                        style: TextStyle(
+                          decoration: TextDecoration.lineThrough,
+                          decorationColor: Colors.red,
+                          color: AppColors.MAIN_COLORE,
+                          fontWeight: FontWeight.w700,
+                          fontSize: SizeConfig.scaleTextFont(12),
+                          fontFamily: 'pop',
+                        ),
+                      ),
+                      SizedBox(width: SizeConfig.scaleWidth(3),),
+                      TextCustom(
+                        title: '\$' + controller.productsDetiles.value
+                            .price.toString(),
+                        fontfamily: 'pop',
+                        fontweight: FontWeight.w700,
+                        size: SizeConfig.scaleTextFont(12),
+                        align: TextAlign.center,
+                        color: AppColors.TITLE_ON_BOARDING,),
+                    ],
                   ),
                 ],
               ),

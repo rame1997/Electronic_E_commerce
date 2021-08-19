@@ -1,5 +1,4 @@
-import 'package:electronic_e_commerce/models/product.dart';
-import 'package:electronic_e_commerce/preferences/user_preferences.dart';
+
 import 'package:electronic_e_commerce/utilities/app_colors.dart';
 import 'package:electronic_e_commerce/utilities/size_config.dart';
 import 'package:electronic_e_commerce/widgets/text.dart';

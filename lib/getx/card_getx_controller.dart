@@ -13,8 +13,8 @@ class CardGetxController extends GetxController {
   static CardGetxController get to => Get.find();
 
   void onInit() {
-    super.onInit();
     getCards();
+    super.onInit();
     cards.refresh();
   }
   Future<void> getCardDetiles({required int id}) async {

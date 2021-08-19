@@ -5,8 +5,10 @@ import 'package:electronic_e_commerce/screens/bottom_navigation_bar/tab_bottom_n
 import 'package:electronic_e_commerce/screens/bottom_navigation_bar/tab_bottom_navigation_bar/setting_screen.dart';
 import 'package:electronic_e_commerce/utilities/app_colors.dart';
 import 'package:electronic_e_commerce/utilities/size_config.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:electronic_e_commerce/firebase/fb_notifications.dart';
 
 
 
@@ -18,7 +20,7 @@ class BottomNavigationBarScreen extends StatefulWidget {
       _BottomNavigationBarScreenState();
 }
 
-class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
+class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> with FbNotifications{
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
@@ -27,7 +29,14 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
     SettingScreen(),
     CommonQuestionsScreen(),
   ];
-
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initializeForegroundNotificationForAndroid();
+    manageNotificationAction();
+    FirebaseMessaging.instance.getToken();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,4 +85,5 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
       _selectedIndex = index;
     });
   }
+
 }

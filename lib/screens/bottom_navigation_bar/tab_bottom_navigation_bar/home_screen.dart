@@ -1,9 +1,8 @@
-import 'package:electronic_e_commerce/api/home_api_controller.dart';
 import 'package:electronic_e_commerce/getx/cart_getx_controller.dart';
 import 'package:electronic_e_commerce/getx/home_getx_controller.dart';
 import 'package:electronic_e_commerce/getx/user_getx_controller.dart';
-import 'package:electronic_e_commerce/models/home.dart';
 import 'package:electronic_e_commerce/preferences/user_preferences.dart';
+import 'package:electronic_e_commerce/screens/product/product_details_screen.dart';
 import 'package:electronic_e_commerce/utilities/app_colors.dart';
 import 'package:electronic_e_commerce/utilities/size_config.dart';
 import 'package:electronic_e_commerce/widgets/card_last_product.dart';
@@ -15,6 +14,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
 import '../../categories/sub_categories_screen.dart';
+import '../../order_details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -150,27 +150,30 @@ class _HomeScreenState extends State<HomeScreen> {
   ),
                             GetX<HomeGetxController>(
                                 builder: (HomeGetxController controller) {
-
-                                  final List<String> image = [
-                                    for(var i = 0; i < controller.data.value[0].slider.length; i++)
-                                      controller.data.value[0].slider[i].imageUrl
+                                  List<String> image=[];
+                                  List<Widget> imageSliders=[];
+if(controller.data.isNotEmpty){
+    image = [
+for(var i = 0; i < controller.data.value[0].slider.length; i++)
+  controller.data.value[0].slider[i].imageUrl
                                   ];
-                                  final List<Widget> imageSliders = image
+                                   imageSliders = image
                                       .map((item) =>
-                                      Container(
-                                        child: Container(
-                                          margin: EdgeInsets.all(5.0),
-                                          child: ClipRRect(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                              child: Stack(
-                                                children: <Widget>[
-                                                  Image.network(item, fit: BoxFit.cover, width: 1000.0),
+                                  Container(
+                                  child: Container(
+                                  margin: EdgeInsets.all(5.0),
+                                  child: ClipRRect(
+                                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                  child: Stack(
+                                  children: <Widget>[
+                                  Image.network(item, fit: BoxFit.cover, width: 1000.0),
 
-                                                ],
-                                              )),
-                                        ),
-                                      ))
-                                      .toList();
+                                  ],
+                                  )),
+                                  ),
+                                  ))
+                                      .toList();}
+
                                   return controller.loading.value
                                       ? Center(
                                     child: CircularProgressIndicator(),
@@ -372,7 +375,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                         quaitity: _homeController.data[0]
                                             .latestProducts[index].quantity,
                                         detiles: '',
-                                        onPress: () {},);
+                                        onPress: () {
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(ProductId: _homeController.data[0]
+                                              .latestProducts[index].id,)),);
+
+                                        },);
                                     },
                                     separatorBuilder: (context, index) {
                                       return SizedBox(
@@ -443,7 +450,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         quaitity: _homeController.data[0]
                                             .famousProducts[index].quantity,
                                         detiles: '',
-                                        onPress: () {},);
+                                        onPress: () {
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(ProductId: _homeController.data[0]
+                                              .famousProducts[index].id,)),);
+                                        },);
                                     },
                                     separatorBuilder: (context, index) {
                                       return SizedBox(

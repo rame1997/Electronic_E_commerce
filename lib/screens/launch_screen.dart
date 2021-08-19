@@ -1,6 +1,8 @@
+import 'package:electronic_e_commerce/getx/address_getx_controller.dart';
+import 'package:electronic_e_commerce/getx/card_getx_controller.dart';
+import 'package:electronic_e_commerce/getx/cart_getx_controller.dart';
 import 'package:electronic_e_commerce/getx/city_getx_controller.dart';
 import 'package:electronic_e_commerce/getx/home_getx_controller.dart';
-import 'package:electronic_e_commerce/getx/product_getx_controller.dart';
 import 'package:electronic_e_commerce/preferences/user_preferences.dart';
 import 'package:electronic_e_commerce/utilities/app_colors.dart';
 import 'package:electronic_e_commerce/utilities/size_config.dart';
@@ -22,6 +24,9 @@ class _LaunchScreenState extends State<LaunchScreen> {
     super.initState();
        Get.put(CityGetxController());
        Get.put(HomeGetxController());
+    Get.put(CardGetxController());
+    Get.put(AddressGetxController());
+    Get.put(CartGetxController());
     Future.delayed(Duration(seconds: 2), () {
       String route = SharedPrefController().loggedIn ? '/bottom_navigation_bar_screen' : '/on_boarding_screen';
       Navigator.pushReplacementNamed(context, route);
