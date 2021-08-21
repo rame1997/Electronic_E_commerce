@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:electronic_e_commerce/api/order_api_controller.dart';
 import 'package:electronic_e_commerce/getx/address_getx_controller.dart';
 import 'package:electronic_e_commerce/getx/card_getx_controller.dart';
@@ -166,11 +168,12 @@ class _CardAddressOptionScreenState extends State<CardAddressOptionScreen> with 
   Future<void> performAddOrder() async {
     late OrderCreate order;
     late var finalJson;
+
       finalJson = OrderCreate(card_id: 0, cart_create: [], payment_type: '', address_id: 0).encondeToJson(cartCreate);
       print(finalJson);
 
     order = OrderCreate(cart_create:[], address_id: selectedIdAddress, payment_type: 'Online', card_id: selectedIdCard);
-    bool status = await OrderApiController().orderRequests(context, cart: finalJson, payment_type:  order.payment_type, address_id:  order.address_id, card_id: order.card_id);
+    bool status = await OrderApiController().orderRequests(context, cart: cart, payment_type:  order.payment_type, address_id:  order.address_id, card_id: order.card_id);
     if (status) {
       showSnackBar(context, message: 'Added Order', error: true);
       Navigator.pushNamed(context, '/home_screen');
@@ -178,5 +181,9 @@ class _CardAddressOptionScreenState extends State<CardAddressOptionScreen> with 
       showSnackBar(context, message: 'Please, check data', error: true);
     }
    }
-
+   String get cart {
+     List<Map<String, dynamic>> items = [];
+     CartGetxController.to.cart.map((element) => items.add({'product_id': element.product_id, 'quantity': element.quantity})).toList();
+     return jsonEncode(items);
+   }
 }

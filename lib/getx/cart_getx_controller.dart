@@ -1,6 +1,7 @@
 
 import 'package:electronic_e_commerce/Database/controllers/cart_db_controller.dart';
 import 'package:electronic_e_commerce/models/cart.dart';
+import 'package:electronic_e_commerce/models/cart_item.dart';
 import 'package:electronic_e_commerce/models/product.dart';
 import 'package:electronic_e_commerce/models/product_detiles.dart';
 import 'package:electronic_e_commerce/preferences/user_preferences.dart';
@@ -10,6 +11,7 @@ class CartGetxController extends GetxController {
   CartDbController _dbController = CartDbController();
 
   RxList<Cart> cart = <Cart>[].obs;
+  RxList<CartItem> cartItem  = <CartItem>[].obs;
   RxList<ProductDetails> cartDetailes = <ProductDetails>[].obs;
   RxList<int> quitityCount = <int>[].obs;
   RxDouble total=0.0.obs;
