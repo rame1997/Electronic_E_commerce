@@ -25,5 +25,6 @@ mixin ApiSettings {
   static const String ADDRESS = _API_BASE_URL + "addresses";
   static const String PAYMENT_CARDS = _API_BASE_URL + "payment-cards";
   static const String ORDER = _API_BASE_URL + "orders";
+  static const String Notifications = _API_BASE_URL + "notifications";
 
 }

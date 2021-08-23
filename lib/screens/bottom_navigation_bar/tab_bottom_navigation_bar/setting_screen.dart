@@ -88,22 +88,25 @@ class _SettingScreenState extends State<SettingScreen> {
                   SettingItem(title: AppLocalizations.of(context)!.profile, subTitle:AppLocalizations.of(context)!.update_your_profile, icon:Icons.person ,index:2 ,onTap:(){
                     navigateToProfileScreen();
                   } ,),
-                  SettingItem(title:AppLocalizations.of(context)!.about, subTitle: AppLocalizations.of(context)!.describe_the_company, icon:Icons.info ,index:3 ,onTap:(){
+                  SettingItem(title: AppLocalizations.of(context)!.notifation, subTitle:AppLocalizations.of(context)!.notifation, icon:Icons.notifications ,index:3 ,onTap:(){
+                    navigateToNotifationScreen();
+                  } ,),
+                  SettingItem(title:AppLocalizations.of(context)!.about, subTitle: AppLocalizations.of(context)!.describe_the_company, icon:Icons.info ,index:4 ,onTap:(){
                     navigateToAboutScreen();
                   } ,),
-                  SettingItem(title: AppLocalizations.of(context)!.addresses, subTitle: AppLocalizations.of(context)!.add_addresses, icon:Icons.place_outlined ,index:4 ,onTap:(){
+                  SettingItem(title: AppLocalizations.of(context)!.addresses, subTitle: AppLocalizations.of(context)!.add_addresses, icon:Icons.place_outlined ,index:5 ,onTap:(){
                     navigateToAddressScreen();
                   } ,),
-                  SettingItem(title: AppLocalizations.of(context)!.card, subTitle: AppLocalizations.of(context)!.add_card, icon:Icons.credit_card ,index:4 ,onTap:(){
+                  SettingItem(title: AppLocalizations.of(context)!.card, subTitle: AppLocalizations.of(context)!.add_card, icon:Icons.credit_card ,index:6 ,onTap:(){
                     navigateToCardScreen();
                   } ,),
-                  SettingItem(title: AppLocalizations.of(context)!.contact_us, subTitle: AppLocalizations.of(context)!.contact_us_message, icon:Icons.contact_support ,index:5 ,onTap:(){
+                  SettingItem(title: AppLocalizations.of(context)!.contact_us, subTitle: AppLocalizations.of(context)!.contact_us_message, icon:Icons.contact_support ,index:7 ,onTap:(){
                     navigateToContantScreen();
                   } ,),
-                  SettingItem(title: AppLocalizations.of(context)!.change_password, subTitle: AppLocalizations.of(context)!.change_password_message, icon:Icons.password ,index:6 ,onTap:(){
+                  SettingItem(title: AppLocalizations.of(context)!.change_password, subTitle: AppLocalizations.of(context)!.change_password_message, icon:Icons.password ,index:8 ,onTap:(){
                     navigateToChangeScreen();
                   } ,),
-                  SettingItem(title:AppLocalizations.of(context)!. logout, subTitle: AppLocalizations.of(context)!.logout_message, icon:Icons.logout ,index:7 ,onTap:()async{
+                  SettingItem(title:AppLocalizations.of(context)!. logout, subTitle: AppLocalizations.of(context)!.logout_message, icon:Icons.logout ,index:9 ,onTap:()async{
                    await logout();
                   } ,),
                 ],
@@ -137,6 +140,8 @@ class _SettingScreenState extends State<SettingScreen> {
   }
   void navigateToCardScreen() {
     Navigator.pushNamed(context, '/card_option_screen');
+  } void navigateToNotifationScreen() {
+    Navigator.pushNamed(context, '/notifation_screen');
   }
   Future logout() async {
     bool loggedOut = await UserApiController().logout(context);

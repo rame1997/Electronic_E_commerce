@@ -120,6 +120,7 @@
   "status":"Status",
   "card_address_option":"Card Address Option",
   "check_out":"Check Out",
-  "cart_empty":"Cart is empty"
+  "cart_empty":"Cart is empty",
+  "notifation":"Notifation"
 
 }

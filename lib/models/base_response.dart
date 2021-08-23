@@ -3,6 +3,7 @@ import 'package:electronic_e_commerce/models/question.dart';
 
 import 'address.dart';
 import 'city.dart';
+import 'notafiction.dart';
 import 'order.dart';
 
 class BaseResponse<T> {
@@ -41,6 +42,10 @@ class BaseResponse<T> {
       if(T==Order){
         json['list'].forEach((v) {
           list.add(Order.fromJson(v) as T);
+        });
+      } if(T==Notifation){
+        json['list'].forEach((v) {
+          list.add(Notifation.fromJson(v) as T);
         });
       }
   }

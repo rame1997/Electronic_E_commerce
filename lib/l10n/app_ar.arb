@@ -120,6 +120,8 @@
   "status":"الحالة",
   "card_address_option":"اختيار البطاقة والعنوان",
   "check_out":"شراء",
-  "cart_empty":"السلة فارغة"
+  "cart_empty":"السلة فارغة",
+  "notifation":"الاشعارات"
+
 
 }
